@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "microgrep",
+    "recursive_file_check"
+]
