@@ -2,5 +2,6 @@
 
 members = [
     "microgrep",
-    "recursive_file_check"
+    "recursive_file_check",
+    "argument_parser"
 ]
