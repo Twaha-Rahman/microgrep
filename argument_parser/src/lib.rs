@@ -1,29 +1,67 @@
 use std::env;
 
-struct Agrguments<'a> {
+#[derive(Debug)]
+pub struct Agrguments {
     dir: String,
     search_string: String,
-    flags: Vec<&'a str>,
+    flags: Vec<String>,
 }
 
-pub fn parse() {
-    let avalable_flags = ["regex", "case-sensitive", "case-insensitive"];
-    let args: Vec<String> = env::args().collect();
+pub fn parse() -> Result<Agrguments, String> {
+    let avalable_flags = ["-regex", "-case-sensitive", "-case-insensitive"];
+    let mut flags: Vec<String> = vec![];
+    let mut args = env::args();
 
-    let mut flags: Vec<&str> = vec![];
+    let mut dir: String = String::new();
+    let mut search_string: String = String::new();
 
-    for argument in args.iter() {
+    let mut error_occured = false;
+
+    match args.next() {
+        Some(value) => dir = format!("{}/", value),
+        None => {
+            panic!("ERROR: Unknown system error!");
+        }
+    }
+
+    match args.next() {
+        Some(value) => dir = format!("{}{}", dir, value),
+        None => {
+            eprintln!("ERROR: PATH not provided!");
+            error_occured = true;
+        }
+    }
+
+    match args.next() {
+        Some(value) => search_string = value,
+        None => {
+            eprintln!("ERROR: SEARCH_STRING not provided!");
+            error_occured = true;
+        }
+    }
+
+    if error_occured == true {
+        return Err(String::from("\nFailed due to previous error!"));
+    }
+
+    let args: Vec<String> = args.collect();
+
+    for argument in args.into_iter() {
         if argument.starts_with("-") {
-            let flag = &argument[1..];
-            if avalable_flags.contains(&flag) {
+            let flag = argument;
+            if avalable_flags.contains(&flag.as_str()) {
                 flags.push(flag);
             } else {
                 println!("WARN: Unknown flag `{}` provided.", flag);
             }
         }
     }
-
-    println!("{}", args.join(" "));
+    println!("{} {}", dir, search_string);
+    return Ok(Agrguments {
+        dir,
+        search_string,
+        flags,
+    });
 }
 
 #[cfg(test)]
