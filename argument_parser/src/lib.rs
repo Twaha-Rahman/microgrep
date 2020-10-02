@@ -1,4 +1,7 @@
 use std::env;
+use std::process;
+
+use colored::*;
 
 #[derive(Debug)]
 pub struct Agrguments {
@@ -20,14 +23,15 @@ pub fn parse() -> Result<Agrguments, String> {
     match args.next() {
         Some(value) => dir = format!("{}/", value),
         None => {
-            panic!("ERROR: Unknown system error!");
+            eprintln!("ERROR: Unknown system error!");
+            process::exit(1);
         }
     }
 
     match args.next() {
         Some(value) => dir = format!("{}{}", dir, value),
         None => {
-            eprintln!("ERROR: PATH not provided!");
+            eprintln!("\n{}", "ERROR: PATH not provided!".red());
             error_occured = true;
         }
     }
@@ -35,7 +39,7 @@ pub fn parse() -> Result<Agrguments, String> {
     match args.next() {
         Some(value) => search_string = value,
         None => {
-            eprintln!("ERROR: SEARCH_STRING not provided!");
+            eprintln!("\n{}", "ERROR: SEARCH_STRING not provided!".red());
             error_occured = true;
         }
     }
@@ -52,11 +56,11 @@ pub fn parse() -> Result<Agrguments, String> {
             if avalable_flags.contains(&flag.as_str()) {
                 flags.push(flag);
             } else {
-                println!("WARN: Unknown flag `{}` provided.", flag);
+                let warning_msg = format!("WARN: Unknown flag `{}` provided.", flag);
+                println!("\n{}", warning_msg.yellow());
             }
         }
     }
-    println!("{} {}", dir, search_string);
     return Ok(Agrguments {
         dir,
         search_string,
