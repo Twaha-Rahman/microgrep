@@ -3,5 +3,5 @@
 ## Run
 
 ```sh
-cargo watch -x 'run -- path search -regex'
+cargo watch -c -x 'run -- path search -regex'
 ```
