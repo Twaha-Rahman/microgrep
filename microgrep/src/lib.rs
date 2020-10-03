@@ -1,27 +1,23 @@
 use std::env;
+use std::error::Error;
 use std::process;
 
 use argument_parser;
 use recursive_file_check;
 
-pub fn run() {
-    match argument_parser::parse() {
-        Err(reason) => {
-            eprintln!("{}", reason);
-            process::exit(1)
-        }
-        Ok(value) => {
-            println!("{:?}", value);
+pub fn run() -> Result<(), Box<dyn Error>> {
+    let ans = argument_parser::parse(&mut env::args())?;
 
-            let path_buffer = env::current_dir().unwrap();
-            let current_path = path_buffer.to_str().unwrap();
+    println!("{:?}", ans);
 
-            let current_directory = format!("{}/", current_path);
+    let path_buffer = env::current_dir()?;
+    let current_path = path_buffer.to_str().unwrap_or_else(|| "");
 
-            match recursive_file_check::search_files_in_folder(current_directory) {
-                Ok(output) => println!("{}", output),
-                Err(reason) => eprintln!("Error occured! Here's the reason:\n{}", reason),
-            }
-        }
-    }
+    let current_directory = format!("{}/", current_path);
+
+    let result = recursive_file_check::search_files_in_folder(current_directory)?;
+
+    println!("{:?}", result);
+
+    Ok(())
 }
