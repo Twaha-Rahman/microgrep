@@ -1,5 +1,5 @@
 use std::env;
-use std::process;
+use std::path;
 
 use collect_env_vars::{collect_env_vars, UserInput};
 use collect_flags::collect_flags;
@@ -10,9 +10,9 @@ mod collect_flags;
 
 #[derive(Debug)]
 pub struct Agrguments {
-    dir: String,
-    search_string: String,
-    flags: Vec<String>,
+    pub dir: path::PathBuf,
+    pub search_string: String,
+    pub flags: Vec<String>,
 }
 
 pub fn parse(args: &mut env::Args) -> Result<Agrguments, String> {

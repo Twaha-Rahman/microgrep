@@ -4,11 +4,17 @@
 //!
 //! ## Example
 
-use std::fs::read_dir;
+use argument_parser::Agrguments;
+use std::fs::{self, read_dir, DirEntry};
 use std::io;
+use std::path::Path;
 
-pub fn search_files_in_folder(folder_dir: String) -> Result<String, io::Error> {
-    Ok(folder_dir)
+mod dir_traverser;
+mod file_match_seacher;
+
+pub fn search_files_in_folder(input_arguments: &Agrguments) -> Result<&'static str, io::Error> {
+    dir_traverser::visit_dirs(input_arguments);
+    Ok("placeholder_dir")
 }
 
 #[cfg(test)]
