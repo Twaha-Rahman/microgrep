@@ -3,10 +3,8 @@ use std::io;
 
 use argument_parser::Agrguments;
 
-use crate::file_match_seacher::search;
-
 pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<Vec<String>>> {
-    let search_closure = |text_to_search: String| {
+    let search = |text_to_search: String| {
         let mut matched_lines = vec![];
         for line in text_to_search.lines().map(String::from) {
             if line.contains(&input.search_string) {
@@ -21,7 +19,7 @@ pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<Vec<String>>> {
 
     if input.dir.is_file() {
         let file_contents = fs::read_to_string(&input.dir)?;
-        let result = search_closure(file_contents);
+        let result = search(file_contents);
 
         results.push(result);
 
@@ -37,7 +35,7 @@ pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<Vec<String>>> {
             } else {
                 let file_contents = fs::read_to_string(&path)?;
 
-                let result = search_closure(file_contents);
+                let result = search(file_contents);
 
                 results.push(result);
             }

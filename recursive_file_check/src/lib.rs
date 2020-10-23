@@ -10,7 +10,6 @@ use std::io;
 use std::path::Path;
 
 mod dir_traverser;
-mod file_match_seacher;
 
 pub fn search_files_in_folder(input_arguments: &Agrguments) -> Result<&'static str, io::Error> {
     dir_traverser::visit_dirs(input_arguments);
