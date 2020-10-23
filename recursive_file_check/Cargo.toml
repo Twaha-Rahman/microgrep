@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 argument_parser = { path = "../argument_parser" }
+colored = "2"

@@ -5,15 +5,13 @@
 //! ## Example
 
 use argument_parser::Agrguments;
-use std::fs::{self, read_dir, DirEntry};
+pub use dir_traverser::MachesInFiles;
 use std::io;
-use std::path::Path;
 
 mod dir_traverser;
 
-pub fn search_files_in_folder(input_arguments: &Agrguments) -> Result<&'static str, io::Error> {
-    dir_traverser::visit_dirs(input_arguments);
-    Ok("placeholder_dir")
+pub fn search_files_in_folder(input_arguments: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
+    dir_traverser::visit_dirs(input_arguments)
 }
 
 #[cfg(test)]

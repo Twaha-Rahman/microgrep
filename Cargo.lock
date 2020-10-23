@@ -59,6 +59,7 @@ name = "recursive_file_check"
 version = "0.1.0"
 dependencies = [
  "argument_parser 0.1.0",
+ "colored 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
