@@ -16,7 +16,7 @@ pub fn collect_env_vars(args_iter: &mut env::Args) -> Result<(UserInput, &mut en
     let mut error_occured = false;
 
     match args_iter.next() {
-        Some(value) => println!("First agument in args: {}", value),
+        Some(_) => {}
         None => {
             eprintln!("ERROR: Unknown system error!");
             process::exit(1);

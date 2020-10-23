@@ -14,8 +14,11 @@ fn minify_info(info: &Vec<recursive_file_check::MachesInFiles>) -> String {
     }
 
     let formatted_info = format!(
-        "\n{} match(es) found in {} file(s).\n",
-        total_match, match_found_in
+        "\n{} {} found in {} {}.\n",
+        total_match,
+        if total_match == 1 { "match" } else { "matches" },
+        match_found_in,
+        if match_found_in == 1 { "file" } else { "files" }
     );
 
     formatted_info.yellow().to_string()
@@ -24,7 +27,7 @@ fn minify_info(info: &Vec<recursive_file_check::MachesInFiles>) -> String {
 pub fn run() -> Result<(), String> {
     let input = argument_parser::parse(&mut env::args())?;
 
-    println!("{:?}", input);
+    println!("Debug Info: {:?}", input);
 
     match recursive_file_check::search_files_in_folder(&input) {
         Ok(value) => {
