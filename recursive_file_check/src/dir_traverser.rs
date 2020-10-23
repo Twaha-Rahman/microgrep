@@ -24,7 +24,7 @@ impl fmt::Display for MachesInFiles {
         );
 
         for (index, line_string) in &self.matches {
-            writeln!(f, "\n  {} | {}", index, line_string);
+            writeln!(f, "\n  {} {}", format!("{} |", index).blue(), line_string);
         }
 
         Ok(())
