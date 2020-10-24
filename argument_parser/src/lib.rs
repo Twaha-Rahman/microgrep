@@ -3,7 +3,6 @@ use std::path;
 
 use collect_env_vars::{collect_env_vars, UserInput};
 use collect_flags::collect_flags;
-use colored::*;
 
 mod collect_env_vars;
 mod collect_flags;

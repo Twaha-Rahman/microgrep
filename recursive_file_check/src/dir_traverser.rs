@@ -14,17 +14,15 @@ pub struct MachesInFiles {
 
 impl fmt::Display for MachesInFiles {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let mut printable_lines: Vec<String> = Vec::new();
-
         writeln!(
             f,
             "⚪ {} - ({} match(es))",
             self.filename.green(),
             self.matches.len()
-        );
+        )?;
 
         for (index, line_string) in &self.matches {
-            writeln!(f, "\n  {} {}", format!("{} |", index).blue(), line_string);
+            writeln!(f, "\n  {} {}", format!("{} |", index).blue(), line_string)?;
         }
 
         Ok(())
