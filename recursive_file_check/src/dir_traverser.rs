@@ -20,9 +20,14 @@ impl fmt::Display for MachesInFiles {
 
         writeln!(
             f,
-            "⚪ {} - ({} match(es))",
+            "⚪ {} - ({} {})",
             self.filename.green(),
-            self.matches.len()
+            self.matches.len(),
+            if self.matches.len() > 1 {
+                "matches"
+            } else {
+                "match"
+            }
         )?;
 
         for (index, line_string) in &self.matches {
