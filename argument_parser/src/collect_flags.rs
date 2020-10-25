@@ -1,9 +1,7 @@
-use std::env;
-
 use colored::*;
 
-pub fn collect_flags(args: &mut env::Args) -> Vec<String> {
-    let avalable_flags = ["-regex", "-case-sensitive", "-case-insensitive"];
+pub fn collect_flags<T: Iterator<Item = String>>(args: &mut T) -> Vec<String> {
+    let avalable_flags = ["--regex", "--case-sensitive", "--case-insensitive"];
     let mut flags: Vec<String> = vec![];
 
     let args: Vec<String> = args.collect();
@@ -21,4 +19,27 @@ pub fn collect_flags(args: &mut env::Args) -> Vec<String> {
     }
 
     flags
+}
+
+#[cfg(test)]
+mod tests {
+
+    use crate::collect_flags;
+
+    #[test]
+    fn collects_multiple_flags() {
+        let flags = ["--regex", "--case-insensitive"];
+        let mut args = flags.iter().map(|s| s.to_string());
+        let parsed_env_vars = collect_flags(&mut args);
+
+        assert_eq!(Vec::from(flags), parsed_env_vars);
+    }
+
+    #[test]
+    fn collects_single_flag() {
+        let flags = ["--regex"];
+        let mut args = flags.iter().map(|s| s.to_string());
+        let parsed_env_vars = collect_flags(&mut args);
+        assert_eq!(Vec::from(flags), parsed_env_vars);
+    }
 }

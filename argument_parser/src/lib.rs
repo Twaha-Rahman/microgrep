@@ -24,11 +24,3 @@ pub fn parse(args: &mut env::Args) -> Result<Agrguments, String> {
         flags,
     });
 }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
