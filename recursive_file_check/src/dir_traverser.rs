@@ -1,9 +1,5 @@
-use std::fmt;
 use std::fs;
 use std::io;
-
-use colored::*;
-use regex::Regex;
 
 use argument_parser::Agrguments;
 
