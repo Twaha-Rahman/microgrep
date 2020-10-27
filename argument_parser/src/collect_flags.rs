@@ -45,7 +45,7 @@ mod tests {
 
     #[test]
     fn no_flags_passed() {
-        let flags = ["--fsdfsdf"];
+        let flags: [String; 0] = [];
         let mut args = flags.iter().map(|s| s.to_string());
         let parsed_env_vars = collect_flags(&mut args);
         assert_eq!(Vec::new() as Vec<String>, parsed_env_vars);
