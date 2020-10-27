@@ -1,12 +1,12 @@
 use std::env;
 
-use argument_parser;
+use argument_parser::Agrguments;
 use recursive_file_check;
 
 mod minify_info;
 
 pub fn run() -> Result<(), String> {
-    let input = argument_parser::parse(&mut env::args())?;
+    let input = Agrguments::new(&mut env::args())?;
 
     match recursive_file_check::search_files_in_folder(&input) {
         Ok(value) => {

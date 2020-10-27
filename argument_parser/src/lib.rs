@@ -14,13 +14,15 @@ pub struct Agrguments {
     pub flags: Vec<String>,
 }
 
-pub fn parse(args: &mut env::Args) -> Result<Agrguments, String> {
-    let (UserInput { dir, search_string }, args_iterator) = collect_env_vars(args)?;
+impl Agrguments {
+    pub fn new(args: &mut env::Args) -> Result<Agrguments, String> {
+        let (UserInput { dir, search_string }, args_iterator) = collect_env_vars(args)?;
 
-    let flags = collect_flags(args_iterator);
-    return Ok(Agrguments {
-        dir,
-        search_string,
-        flags,
-    });
+        let flags = collect_flags(args_iterator);
+        return Ok(Agrguments {
+            dir,
+            search_string,
+            flags,
+        });
+    }
 }
