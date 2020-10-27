@@ -49,4 +49,16 @@ mod tests {
 
         assert_eq!(Vec::from(flags), parsed_env_vars);
     }
+
+    #[test]
+    fn filter_out_unknown_flags() {
+        let flags = ["--regex", "--case-insensitive", "--invalid-flag"];
+        let mut args = flags.iter().map(|s| s.to_string());
+        let parsed_env_vars = collect_flags(&mut args);
+
+        assert_eq!(
+            Vec::from(["--regex", "--case-insensitive"]),
+            parsed_env_vars
+        );
+    }
 }
