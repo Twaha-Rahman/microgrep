@@ -3,7 +3,7 @@ use std::io;
 
 use argument_parser::Agrguments;
 
-pub use crate::MatchesInFile::MachesInFiles;
+pub use crate::matches_in_file::MachesInFiles;
 
 pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
     let search = |text_to_search: String| {
