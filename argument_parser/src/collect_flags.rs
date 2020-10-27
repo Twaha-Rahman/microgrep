@@ -27,14 +27,12 @@ mod tests {
     use crate::collect_flags;
 
     #[test]
-    fn collects_multiple_flags() {
-        let flags = ["--regex", "--case-insensitive"];
+    fn no_flags_passed() {
+        let flags: [String; 0] = [];
         let mut args = flags.iter().map(|s| s.to_string());
         let parsed_env_vars = collect_flags(&mut args);
-
-        assert_eq!(Vec::from(flags), parsed_env_vars);
+        assert_eq!(Vec::new() as Vec<String>, parsed_env_vars);
     }
-
     #[test]
     fn collects_single_flag() {
         let flags = ["--regex"];
@@ -44,10 +42,11 @@ mod tests {
     }
 
     #[test]
-    fn no_flags_passed() {
-        let flags: [String; 0] = [];
+    fn collects_multiple_flags() {
+        let flags = ["--regex", "--case-insensitive"];
         let mut args = flags.iter().map(|s| s.to_string());
         let parsed_env_vars = collect_flags(&mut args);
-        assert_eq!(Vec::new() as Vec<String>, parsed_env_vars);
+
+        assert_eq!(Vec::from(flags), parsed_env_vars);
     }
 }
