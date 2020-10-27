@@ -42,4 +42,12 @@ mod tests {
         let parsed_env_vars = collect_flags(&mut args);
         assert_eq!(Vec::from(flags), parsed_env_vars);
     }
+
+    #[test]
+    fn no_flags_passed() {
+        let flags = ["--fsdfsdf"];
+        let mut args = flags.iter().map(|s| s.to_string());
+        let parsed_env_vars = collect_flags(&mut args);
+        assert_eq!(Vec::new() as Vec<String>, parsed_env_vars);
+    }
 }
