@@ -1,6 +1,8 @@
 use std::fs;
 use std::io;
 
+use regex::Regex;
+
 use argument_parser::Agrguments;
 
 pub use crate::matches_in_file::MachesInFiles;
@@ -9,10 +11,18 @@ pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
     let search = |text_to_search: String| {
         let mut matched_lines = vec![];
         for (index, line_string) in text_to_search.lines().enumerate() {
+            let index = index + 1;
             let line_string = line_string.to_owned();
 
-            if line_string.contains(&input.search_string) {
-                matched_lines.push((index, line_string));
+            if input.flags.contains(&String::from("--regex")) {
+                let regex_created_from_input = Regex::new(input.search_string.as_str()).unwrap();
+                if regex_created_from_input.is_match(line_string.as_str()) {
+                    matched_lines.push((index, line_string));
+                }
+            } else {
+                if line_string.contains(&input.search_string) {
+                    matched_lines.push((index, line_string));
+                }
             }
         }
         matched_lines
