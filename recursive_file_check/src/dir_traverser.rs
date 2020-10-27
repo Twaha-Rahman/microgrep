@@ -3,40 +3,11 @@ use std::fs;
 use std::io;
 
 use colored::*;
+use regex::Regex;
 
 use argument_parser::Agrguments;
 
-#[derive(Debug)]
-pub struct MachesInFiles {
-    filename: String,
-    pub matches: Vec<(usize, String)>,
-}
-
-impl fmt::Display for MachesInFiles {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if self.matches.len() == 0 {
-            return Ok(());
-        }
-
-        writeln!(
-            f,
-            "⚪ {} - ({} {})",
-            self.filename.green(),
-            self.matches.len(),
-            if self.matches.len() > 1 {
-                "matches"
-            } else {
-                "match"
-            }
-        )?;
-
-        for (index, line_string) in &self.matches {
-            writeln!(f, "\n  {} {}", format!("{} |", index).blue(), line_string)?;
-        }
-
-        Ok(())
-    }
-}
+pub use crate::MatchesInFile::MachesInFiles;
 
 pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
     let search = |text_to_search: String| {

@@ -8,6 +8,7 @@ use argument_parser::Agrguments;
 pub use dir_traverser::MachesInFiles;
 use std::io;
 
+mod MatchesInFile;
 mod dir_traverser;
 
 pub fn search_files_in_folder(input_arguments: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
