@@ -8,6 +8,23 @@ use argument_parser::Agrguments;
 pub use crate::matches_in_file::MachesInFiles;
 
 pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
+    if !input.dir.is_file() && !input.dir.is_dir() {
+        match input.dir.to_str() {
+            Some(name) => {
+                return Err(io::Error::new(
+                    io::ErrorKind::NotFound,
+                    format!("File or folder `{}` can not be found!", name),
+                ))
+            }
+            None => {
+                return Err(io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "The specified File or folder can not be found!",
+                ))
+            }
+        }
+    }
+
     let search = |text_to_search: String| {
         let mut matched_lines = vec![];
         for (index, line_string) in text_to_search.lines().enumerate() {

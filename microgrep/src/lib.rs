@@ -1,3 +1,5 @@
+use colored::*;
+
 use std::env;
 use std::time::Instant;
 
@@ -24,7 +26,10 @@ pub fn run() -> Result<String, String> {
             }
         }
         Err(reason) => {
-            eprintln!("Error occured: {}", reason);
+            eprintln!(
+                "{}",
+                format!("\n {} {}", "Error occured:".red(), reason.to_string().red())
+            );
         }
     }
 
