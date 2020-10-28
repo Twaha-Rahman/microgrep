@@ -23,8 +23,6 @@ mod tests {
 
         let returned_msg = time_taken_to_search(start);
 
-        print!("{}", returned_msg);
-
         assert!(returned_msg.contains("Took 0ms to search."));
     }
 
@@ -35,8 +33,6 @@ mod tests {
         thread::sleep(Duration::from_millis(1));
 
         let returned_msg = time_taken_to_search(start);
-
-        print!("{}", returned_msg);
 
         assert!(returned_msg.contains("Took 1ms to search."));
     }
@@ -49,8 +45,6 @@ mod tests {
 
         let returned_msg = time_taken_to_search(start);
 
-        print!("{}", returned_msg);
-
         assert!(returned_msg.contains("Took 50ms to search."));
     }
 
@@ -61,8 +55,6 @@ mod tests {
         thread::sleep(Duration::from_secs(1));
 
         let returned_msg = time_taken_to_search(start);
-
-        print!("{}", returned_msg);
 
         assert!(returned_msg.contains("Took 1000ms to search."));
     }
