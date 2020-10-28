@@ -15,7 +15,7 @@ impl fmt::Display for MachesInFiles {
 
         writeln!(
             f,
-            "⚪ {} - ({} {})",
+            "\n⚪ {} - ({} {})",
             self.filename.green(),
             self.matches.len(),
             if self.matches.len() > 1 {

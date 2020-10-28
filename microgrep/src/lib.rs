@@ -12,10 +12,10 @@ pub fn run() -> Result<(), String> {
         Ok(value) => {
             let short_info = minify_info::minify_info(&value);
 
-            println!("{}", short_info);
+            print!("{}", short_info);
 
             for found_match in value {
-                println!("{}", found_match);
+                print!("{}", found_match);
             }
         }
         Err(reason) => {
