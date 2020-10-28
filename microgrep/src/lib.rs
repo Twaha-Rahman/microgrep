@@ -1,11 +1,16 @@
 use std::env;
+use std::time::Instant;
+
+mod minify_info;
+mod time_taken;
 
 use argument_parser::Agrguments;
 use recursive_file_check;
+use time_taken::time_taken_to_search;
 
-mod minify_info;
+pub fn run() -> Result<String, String> {
+    let execution_start_time = Instant::now();
 
-pub fn run() -> Result<(), String> {
     let input = Agrguments::new(&mut env::args())?;
 
     match recursive_file_check::search_files_in_folder(&input) {
@@ -23,5 +28,5 @@ pub fn run() -> Result<(), String> {
         }
     }
 
-    Ok(())
+    Ok(time_taken_to_search(execution_start_time))
 }
