@@ -49,5 +49,5 @@ cargo install watch
 And then run the following command -
 
 ```sh
-cargo watch -c -x 'run -- path search -regex'
+cargo watch -c -x 'run -- path search --regex'
 ```
