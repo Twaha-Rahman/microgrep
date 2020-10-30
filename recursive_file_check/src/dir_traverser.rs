@@ -1,3 +1,4 @@
+use io::{Error, ErrorKind};
 use std::fs;
 use std::io;
 
@@ -11,14 +12,14 @@ pub fn visit_dirs(input: &Agrguments) -> io::Result<Vec<MachesInFiles>> {
     if !input.dir.is_file() && !input.dir.is_dir() {
         match input.dir.to_str() {
             Some(name) => {
-                return Err(io::Error::new(
-                    io::ErrorKind::NotFound,
+                return Err(Error::new(
+                    ErrorKind::NotFound,
                     format!("File or folder `{}` can not be found!", name),
                 ))
             }
             None => {
                 return Err(io::Error::new(
-                    io::ErrorKind::NotFound,
+                    ErrorKind::NotFound,
                     "The specified File or folder can not be found!",
                 ))
             }
