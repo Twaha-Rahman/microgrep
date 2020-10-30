@@ -3,5 +3,6 @@
 members = [
     "microgrep",
     "recursive_file_check",
-    "argument_parser"
+    "argument_parser",
+    "basic_threadpool"
 ]
